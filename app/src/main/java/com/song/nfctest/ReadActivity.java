@@ -20,25 +20,26 @@ import java.io.IOException;
 public class ReadActivity extends Activity {
     private NfcAdapter mAdapter;
     private TextView textView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         textView = new TextView(this);
+        textView = new TextView(this);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-
         setContentView(textView);
 
         mAdapter = NfcAdapter.getDefaultAdapter(this);
         resolveIntent(getIntent());
 
-        if (getCallingActivity() == null){
+        if (getCallingActivity() == null) {
             textView.append("\ncalled by self");
-        }else {
+        } else {
             textView.append("\ncalled by other app");
         }
 
         textView.append("\n\n\n\n\n\ntap your nfc tag to phone to continue ");
     }
+
     void resolveIntent(Intent intent) {
         printLog("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         Parcelable p = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -61,6 +62,7 @@ public class ReadActivity extends Activity {
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -82,6 +84,7 @@ public class ReadActivity extends Activity {
         if (mAdapter == null) return;
         mAdapter.disableForegroundDispatch(this);
     }
+
     void printLog(String message) {
         Log.e("krik", message);
     }
